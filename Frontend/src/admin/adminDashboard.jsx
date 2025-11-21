@@ -27,7 +27,7 @@ import {
   FaFemale,
   FaMoon,
   FaSun,
-  FaBars, // Added for mobile menu
+  FaBars, 
 } from "react-icons/fa";
 import api from "../api";
 import { useTheme } from "../components/ThemeContext";
@@ -49,7 +49,7 @@ const COLORS = [
 // Heatmap colors
 const getColor = (rating) => {
   if (rating >= 4) return "#22c55e"; // green
-  if (rating >= 3) return "#F59E0B"; // yellow
+  if (rating >= 3) return "#F59E0B"; 
   return "#ef4444"; // red
 };
 

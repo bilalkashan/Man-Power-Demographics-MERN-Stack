@@ -1,17 +1,17 @@
 import mongoose from "mongoose";
 
 const demographicsSchema = new mongoose.Schema({
-  Department: { type: String, required: true },    // e.g. HR, IT
-  Designation: { type: String, default: "Staff" },// e.g. Manager, Executive
-  Year: { type: Number, required: true },          // 2024, 2025
-  Gender: { type: String },                        // Male/Female/Other
-  Age: { type: Number },                           // years
-  Tenure: { type: Number },                        // years
-  Education: { type: String },                     // High School/Bachelors/etc
-  Province: { type: String },                      // Province name (for map)
-  City: { type: String },                          // City name
-  lat: { type: Number },                           // optional lat for plotting
-  lon: { type: Number }                            // optional lon for plotting
+  Department: { type: String, required: true },    
+  Designation: { type: String, default: "Staff" },
+  Year: { type: Number, required: true },          
+  Gender: { type: String },                        
+  Age: { type: Number },                           
+  Tenure: { type: Number },                        
+  Education: { type: String },                     
+  Province: { type: String },                     
+  City: { type: String },                         
+  lat: { type: Number },                           
+  lon: { type: Number }                           
 });
 
 const Demographics = mongoose.model("Demographics", demographicsSchema);

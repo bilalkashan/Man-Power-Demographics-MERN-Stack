@@ -10,21 +10,19 @@ import { demographicsData, demographicsFilter, demographicsSummary } from "../co
 const router = express.Router();
 const upload = multer({ dest: "uploads/" });
 
-// Upload and replace all demographics
 router.post("/upload", verifyToken, upload.single("file"), async (req, res) => {
   try {
     if (!req.file) {
       return res.status(400).json({ message: "No file uploaded" });
     }
 
-    // ✅ Read Excel
+    // Read Excel
     const workbook = xlsx.readFile(req.file.path);
     const sheetName = workbook.SheetNames[0];
     const sheetData = xlsx.utils.sheet_to_json(workbook.Sheets[sheetName], {
-      defval: "" // fill empty cells with ""
+      defval: ""
     });
 
-    // City → lat/lon/province mapping
     const cityCoords = {
       "Karachi": { lat: 24.8607, lon: 67.0011, province: "Sindh" },
       "Lahore": { lat: 31.5204, lon: 74.3587, province: "Punjab" },
@@ -35,7 +33,7 @@ router.post("/upload", verifyToken, upload.single("file"), async (req, res) => {
       "Peshawar": { lat: 34.0151, lon: 71.5249, province: "KPK" }
     };
 
-    // ✅ Normalize & map rows
+    // Normalize & map rows
     const formattedData = sheetData.map(row => {
       const doc = {
         Department: row.Department || row.department || "",
@@ -60,14 +58,14 @@ router.post("/upload", verifyToken, upload.single("file"), async (req, res) => {
       return doc;
     });
 
-    // ✅ Remove empty rows (missing required Department/Year)
+    // Remove empty rows (missing required Department/Year)
     const validData = formattedData.filter(r => r.Department && r.Year);
 
     // Clear old data
     await Demographics.deleteMany({});
     await Demographics.insertMany(validData);
 
-    // ✅ Delete temp file
+    // Delete temp file
     fs.unlinkSync(req.file.path);
 
     res.status(200).json({

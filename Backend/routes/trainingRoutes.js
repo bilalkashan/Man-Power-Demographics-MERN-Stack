@@ -10,7 +10,6 @@ import { getRecords, getSummary } from "../controllers/TrainingController.js";
 const router = express.Router();
 const upload = multer({ dest: "uploads/" });
 
-// Upload Excel and replace dataset
 router.post("/upload", verifyToken, upload.single("file"), async (req, res) => {
   try {
     if (!req.file) return res.status(400).json({ error: "No file uploaded" });

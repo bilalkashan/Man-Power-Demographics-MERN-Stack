@@ -50,6 +50,5 @@ app.use((err, _req, res, _next) => {
 });
 
 app.listen(PORT, "localhost", () => {
-  // Updated the console log to match
   console.log(`✅ Server running at http://localhost:${PORT}`);
 });

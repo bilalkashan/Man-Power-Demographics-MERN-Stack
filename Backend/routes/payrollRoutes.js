@@ -22,7 +22,7 @@ router.post("/upload", upload.single("file"), async (req, res) => {
     const workbook = xlsx.readFile(req.file.path);
     const sheetName = workbook.SheetNames[0];
     const sheet = xlsx.utils.sheet_to_json(workbook.Sheets[sheetName], {
-      defval: 0, // fill empty cells with 0
+      defval: 0, 
     });
 
     const normalizeRow = (row) => {
@@ -33,7 +33,6 @@ router.post("/upload", upload.single("file"), async (req, res) => {
       return obj;
     };
 
-    // Validate & filter rows
     const validRows = sheet
       .map(normalizeRow)
       .filter(
@@ -57,7 +56,6 @@ router.post("/upload", upload.single("file"), async (req, res) => {
       totalCostOfEmployment: Number(row.totalcostofemployment) || 0,
     }));
 
-    // Stop if no valid rows
     if (insertData.length === 0) {
       return res.status(400).json({
         success: false,
@@ -66,11 +64,9 @@ router.post("/upload", upload.single("file"), async (req, res) => {
       });
     }
 
-    // Clear old data & insert new
     await Payroll.deleteMany({});
     const result = await Payroll.insertMany(insertData);
 
-    // Cleanup: Delete the temp file after processing
     try {
         fs.unlinkSync(req.file.path);
     } catch (e) {
@@ -91,7 +87,6 @@ router.post("/upload", upload.single("file"), async (req, res) => {
   }
 });
 
-// Get all payroll data
 router.get("/allPayrollData", verifyToken, allPayrollData);
 
 export default router;

@@ -10,7 +10,6 @@ import { empEngagementData, getMonthlyEngagement } from "../controllers/Engageme
 const router = express.Router();
 const upload = multer({ dest: "uploads/" });
 
-// Upload Excel → DB
 router.post("/upload", upload.single("file"), async (req, res) => {
   try {
     if (!req.file) return res.status(400).json({ message: "No file uploaded" });
@@ -19,7 +18,6 @@ router.post("/upload", upload.single("file"), async (req, res) => {
     const sheet = workbook.Sheets[workbook.SheetNames[0]];
     const data = xlsx.utils.sheet_to_json(sheet);
 
-    // Clear old data
     await Engagement.deleteMany({});
     await Engagement.insertMany(data);
 
@@ -32,7 +30,6 @@ router.post("/upload", upload.single("file"), async (req, res) => {
   }
 });
 
-// Get engagement data
 router.get("/empEngagementData", verifyToken, empEngagementData);
 router.get("/monthly", verifyToken, getMonthlyEngagement);
 

@@ -92,7 +92,7 @@ export const signup = async (req, res) => {
 
     await sendEmail(
       email,
-      "Master Mind - Email Verification OTP",
+      "Man Power Demographics - Email Verification OTP",
       `Hello ${name},\n\nYour OTP is: ${otp}\n\nPlease enter this to verify your account.`
     );
 
@@ -143,21 +143,17 @@ export const forgetPassword = async (req, res) => {
     const { email } = req.body;
     const user = await UserModel.findOne({ email });
 
-    // 1. Check if user exists FIRST to prevent crashes
     if (!user) {
-      // Return a generic message to prevent exposing which emails are registered
       return res.status(200).json({
         message: "If a matching account was found, an OTP has been sent.",
         success: true,
       });
     }
 
-    // 2. Generate a consistent 6-digit OTP
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
     user.otp = otp;
     await user.save();
 
-    // 3. Send the email with the new OTP
     await sendEmail(
       email,
       "Man Power Demographics by HR Department - Password Reset OTP",
@@ -174,7 +170,6 @@ export const forgetPassword = async (req, res) => {
         Master Motor Support Team`
     );
     
-    // 4. Send a success message WITHOUT a token
     return res.status(200).json({
       message: "If a matching account was found, an OTP has been sent.",
       success: true,
@@ -188,10 +183,8 @@ export const forgetPassword = async (req, res) => {
 
 export const resetPassword = async (req, res) => {
   try {
-    // 1. Get OTP from the request body
     const { email, otp, password } = req.body;
 
-    // 2. Add password validation (same as signup)
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/;
     if (!passwordRegex.test(password)) {
       return res.status(400).json({ message: "Password must be 8+ chars with upper, lower, number & special char", success: false });
@@ -203,18 +196,15 @@ export const resetPassword = async (req, res) => {
       return res.status(404).json({ message: "User not found", success: false });
     }
 
-    // 3. CRITICAL: Verify the OTP
     if (user.otp != otp) {
       return res.status(400).json({ message: "Invalid OTP", success: false });
     }
 
-    // 4. Hash the new password and clear the OTP
     const hashedPassword = await bcrypt.hash(password, 10);
     user.password = hashedPassword;
-    user.otp = undefined; // Clear the OTP after use
+    user.otp = undefined; 
     await user.save();
 
-    // The user is not logged in here, so don't send a token. Just success.
     res.status(200).json({
       message: "Password reset successfully. Please log in.",
       success: true,
@@ -237,7 +227,6 @@ export const verifyResetOtp = async (req, res) => {
     const user = await UserModel.findOne({ email });
 
     if (!user) {
-      // Use a generic message to avoid revealing if an email is registered
       return res.status(400).json({ message: "Invalid OTP or email", success: false });
     }
 
@@ -245,7 +234,6 @@ export const verifyResetOtp = async (req, res) => {
       return res.status(400).json({ message: "Invalid OTP", success: false });
     }
 
-    // If we reach here, the OTP is correct
     res.status(200).json({ message: "OTP verified successfully", success: true });
 
   } catch (error) {

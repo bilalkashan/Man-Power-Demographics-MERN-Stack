@@ -1,9 +1,7 @@
-// KeyMetricsController.js
 import Absenteeism from "../models/Absenteeism.js";
 import Performance from "../models/Performance.js";
 import Headcount from "../models/Headcount.js";
 
-// Absenteeism
 export const absenteeism = async (req, res) => {
   try {
     const { year, department, months } = req.query;

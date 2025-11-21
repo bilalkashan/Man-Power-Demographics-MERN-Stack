@@ -22,14 +22,12 @@ export const getIssues = async (req, res) => {
 
 export const getSummary = async (req, res) => {
   try {
-    // getSummary
     const { year, department, designation } = req.query;
     const match = {};
     if (year) match.year = Number(year);
     if (department && department !== "All") match.department = department;
     if (designation && designation !== "All") match.designation = designation; // ✅ NEW
 
-    // Aggregate by issueType for bars & donuts
     const byType = await Issue.aggregate([
       { $match: match },
       {

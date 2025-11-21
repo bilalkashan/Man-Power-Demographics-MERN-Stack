@@ -10,7 +10,6 @@ import { getIssues, getSummary } from "../controllers/IssueController.js";
 const router = express.Router();
 const upload = multer({ dest: "uploads/" });
 
-// Excel Upload → insert into MongoDB
 router.post("/upload", verifyToken, upload.single("file"), async (req, res) => {
   try {
     if (!req.file) return res.status(400).json({ error: "No file uploaded" });

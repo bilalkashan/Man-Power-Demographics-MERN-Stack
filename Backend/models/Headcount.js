@@ -5,7 +5,7 @@ const headcountSchema = new mongoose.Schema({
   year: { type: Number, required: true },
   hires: { type: Number, default: 0 },
   leavers: { type: Number, default: 0 },
-  netHeadcount: { type: Number, default: 0 },  // hires - leavers (or actual snapshot)
+  netHeadcount: { type: Number, default: 0 },  
 }, { timestamps: true });
 
 export default mongoose.model("Headcount", headcountSchema);

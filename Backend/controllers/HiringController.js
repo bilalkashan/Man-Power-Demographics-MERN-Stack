@@ -1,8 +1,6 @@
-// HiringController.js
 import Hiring from "../models/Hiring.js";
 import Leaver from "../models/Leaver.js";
 
-// Get Hiring Data (filter by department)
 export const hiring = async (req, res) => {
   try {
     const { department, month, year } = req.query;
@@ -46,7 +44,7 @@ export const hiringSummary = async (req, res) => {
   try {
     const data = await Hiring.find();
 
-    // 🔥 Funnel aggregation
+    // Funnel aggregation
     const funnel = [
       { name: "Applications", value: data.reduce((a, d) => a + (d.stageCounts?.applications || 0), 0) },
       { name: "Shortlisted", value: data.reduce((a, d) => a + (d.stageCounts?.shortlisted || 0), 0) },
@@ -55,13 +53,13 @@ export const hiringSummary = async (req, res) => {
       { name: "Hired", value: data.reduce((a, d) => a + (d.stageCounts?.hired || 0), 0) },
     ];
 
-    // 🔥 Time to Hire by dept
+    // Time to Hire by dept
     const timeToHire = data.map(d => ({
       department: d.department,
       timeToHire: d.timeToHire || 0,
     }));
 
-    res.json({ funnel, timeToHire }); // 🔥 summary for AdminDashboard
+    res.json({ funnel, timeToHire }); //  summary for AdminDashboard
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

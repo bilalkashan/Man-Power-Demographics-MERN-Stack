@@ -25,7 +25,7 @@ export const getSummary = async (req, res) => {
     if (year) match.year = Number(year);
     if (department && department !== "All") match.department = department;
 
-    // 1) Bar: Trainings by department
+    // Trainings by department
     const byDepartment = await TrainingRecord.aggregate([
       { $match: match },
       {
@@ -48,7 +48,7 @@ export const getSummary = async (req, res) => {
       { $sort: { department: 1 } },
     ]);
 
-    // 2) Donut: Hours by training type
+    // Hours by training type
     const byType = await TrainingRecord.aggregate([
       { $match: match },
       {
@@ -69,7 +69,7 @@ export const getSummary = async (req, res) => {
       { $sort: { trainingType: 1 } },
     ]);
 
-    // 3) Line: monthly participation trend (avg % per month)
+    // monthly participation trend (avg % per month)
     const byMonth = await TrainingRecord.aggregate([
       { $match: match },
       {
@@ -88,7 +88,6 @@ export const getSummary = async (req, res) => {
       },
     ]);
 
-    // 4) KPIs
     const kpisAgg = await TrainingRecord.aggregate([
       { $match: match },
       {
@@ -96,14 +95,12 @@ export const getSummary = async (req, res) => {
           _id: null,
           totalHours: { $sum: "$trainingHours" },
           totalParticipants: { $sum: "$participants" },
-          // average of participation% across rows (fallback if participants are missing)
           avgParticipationPercent: { $avg: "$participationPercent" },
         },
       },
       { $project: { _id: 0 } },
     ]);
 
-    // Most common training types (by hours)
     const topTypes = [...byType]
       .sort((a, b) => b.hours - a.hours)
       .slice(0, 3)

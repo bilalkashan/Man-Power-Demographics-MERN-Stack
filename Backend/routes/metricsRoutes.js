@@ -12,7 +12,6 @@ import { verifyToken } from "../middleware/verifyToken.js";
 const router = express.Router();
 const upload = multer({ dest: "uploads/" });
 
-// Upload Excel
 router.post("/upload", upload.single("file"), async (req, res) => {
   try {
     if (!req.file) return res.status(400).json({ error: "No file uploaded" });
@@ -43,7 +42,6 @@ router.post("/upload", upload.single("file"), async (req, res) => {
   }
 });
 
-// APIs
 router.get("/absenteeism", verifyToken, absenteeism);
 router.get("/performance", verifyToken, performance);
 router.get("/headcount", verifyToken, headcount);

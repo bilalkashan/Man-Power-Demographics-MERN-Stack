@@ -1,8 +1,5 @@
 import React, { useState, useEffect, useMemo } from "react";
 import {
-  RadarChart,
-  PolarGrid,
-  LabelList,
   LineChart,
   Line,
   XAxis,
@@ -16,8 +13,6 @@ import {
   PieChart,
   Pie,
   Cell,
-  PolarAngleAxis,
-  Radar
 } from "recharts";
 import { FaMale, FaFemale, FaMoon, FaSun, FaSignOutAlt } from "react-icons/fa";
 import api from "../api";

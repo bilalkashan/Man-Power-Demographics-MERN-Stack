@@ -1,7 +1,5 @@
-// PayrollController.js (UPDATED)
 import Payroll from "../models/Payroll.js";
 
-// All payroll data (optional filter by dept)
 export const allPayrollData = async (req, res) => {
   try {
     const { department } = req.query;

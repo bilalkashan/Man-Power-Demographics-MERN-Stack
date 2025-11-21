@@ -18,12 +18,12 @@ router.post("/upload", verifyToken, upload.single("file"), async (req, res) => {
     const sheet = workbook.Sheets[workbook.SheetNames[0]];
     const jsonData = xlsx.utils.sheet_to_json(sheet);
 
-    // 🔥 Delete old Leaver data before inserting new
+    // Delete old Leaver data before inserting new
     await Leaver.deleteMany({});
 
     const result = await Leaver.insertMany(jsonData, { ordered: false });
 
-    fs.unlinkSync(req.file.path); // remove temp file
+    fs.unlinkSync(req.file.path); 
 
     res.json({ message: "Data updated successfully!" });
   } catch (err) {

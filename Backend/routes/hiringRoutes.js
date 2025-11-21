@@ -1,5 +1,3 @@
-// hiringRoutes.js
-
 import express from "express";
 import multer from "multer";
 import xlsx from "xlsx";
@@ -12,7 +10,6 @@ import { hiring, leavers, hiringSummary, getHiringKpis } from "../controllers/Hi
 const router = express.Router();
 const upload = multer({ dest: "uploads/" });
 
-// Upload Excel file
 router.post("/upload", upload.single("file"), async (req, res) => {
   try {
     if (!req.file) return res.status(400).json({ error: "No file uploaded" });
@@ -25,7 +22,7 @@ router.post("/upload", upload.single("file"), async (req, res) => {
       const hiringSheet = workbook.Sheets["Hiring"];
       const hiringData = xlsx.utils.sheet_to_json(hiringSheet);
 
-      // 🔥 Delete old Hiring data
+      // Delete old Hiring data
       await Hiring.deleteMany({});
 
       const result = await Hiring.insertMany(hiringData, { ordered: false });
@@ -36,14 +33,14 @@ router.post("/upload", upload.single("file"), async (req, res) => {
       const leaverSheet = workbook.Sheets["Leavers"];
       const leaverData = xlsx.utils.sheet_to_json(leaverSheet);
 
-      // 🔥 Delete old Leaver data
+      // Delete old Leaver data
       await Leaver.deleteMany({});
 
       const result = await Leaver.insertMany(leaverData, { ordered: false });
       leaverCount = result.length;
     }
 
-    fs.unlinkSync(req.file.path); // Delete uploaded file
+    fs.unlinkSync(req.file.path);
 
     res.json({
       message: "Data updated successfully!",
