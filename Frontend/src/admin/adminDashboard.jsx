@@ -422,33 +422,33 @@ export default function AdminDashboard() {
             {/* KPI Cards: Adjusted grid for tablets */}
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 mb-6">
               {/* KPI: Headcount */}
-              <div className="bg-indigo-500 text-white p-6 rounded-2xl shadow-lg hover:scale-105 transition-transform">
-                <h3 className="text-lg font-semibold">Headcount</h3>
-                <p className="text-2xl font-bold">
+              <div className="bg-indigo-500 text-white p-4 rounded-2xl shadow-lg hover:scale-105 transition-transform">
+                <h3 className="text-sm font-medium mb-1 truncate">Headcount</h3>
+                <p className="text-xl font-bold">
                   <CountUp start={0} end={kpis.headcount} duration={2} />
                 </p>
               </div>
 
               {/* KPI: Hires */}
-              <div className="bg-green-500 text-white p-6 rounded-2xl shadow-lg hover:shadow-xl hover:scale-105 transition-transform">
-                <h3 className="text-lg font-semibold">Hires</h3>
-                <p className="text-2xl font-bold">
+              <div className="bg-green-500 text-white p-4 rounded-2xl shadow-lg hover:shadow-xl hover:scale-105 transition-transform">
+                <h3 className="text-sm font-medium mb-1 truncate">Hires</h3>
+                <p className="text-xl font-bold">
                   <CountUp start={0} end={kpis.hires} duration={2} />
                 </p>
               </div>
 
               {/* KPI: Leavers */}
-              <div className="bg-red-500 text-white p-6 rounded-2xl shadow-lg hover:shadow-xl hover:scale-105 transition-transform">
-                <h3 className="text-lg font-semibold">Leavers</h3>
-                <p className="text-2xl font-bold">
+              <div className="bg-red-500 text-white p-4 rounded-2xl shadow-lg hover:shadow-xl hover:scale-105 transition-transform">
+                <h3 className="text-sm font-medium mb-1 truncate">Leavers</h3>
+                <p className="text-xl font-bold">
                   <CountUp start={0} end={kpis.leavers} duration={2} />
                 </p>
               </div>
 
               {/* KPI: Attrition */}
-              <div className="bg-yellow-500 text-white p-6 rounded-2xl shadow-lg hover:shadow-xl hover:scale-105 transition-transform">
-                <h3 className="text-lg font-semibold">Attrition %</h3>
-                <p className="text-2xl font-bold">
+              <div className="bg-yellow-500 text-white p-4 rounded-2xl shadow-lg hover:shadow-xl hover:scale-105 transition-transform">
+                <h3 className="text-sm font-medium mb-1 truncate">Attrition %</h3>
+                <p className="text-xl font-bold">
                   <CountUp
                     start={0}
                     end={kpis.attrition}
@@ -460,9 +460,9 @@ export default function AdminDashboard() {
               </div>
 
               {/* KPI: Payroll */}
-              <div className="bg-purple-500 text-white p-6 rounded-2xl shadow-lg hover:shadow-xl hover:scale-105 transition-transform">
-                <h3 className="text-lg font-semibold">Payroll</h3>
-                <p className="text-2xl font-bold">
+              <div className="bg-purple-500 text-white p-4 rounded-2xl shadow-lg hover:shadow-xl hover:scale-105 transition-transform">
+                <h3 className="text-sm font-medium mb-1 truncate">Payroll</h3>
+                <p className="text-xl font-bold">
                   <CountUp
                     start={0}
                     end={kpis.payroll}
@@ -483,7 +483,7 @@ export default function AdminDashboard() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8 }}
                 >
-                  <h2 className="text-lg font-semibold">⚧ Gender Ratio</h2>
+                  <h2 className="font-semibold mb-6 text-gray-700 dark:text-gray-300">⚧ Gender Ratio</h2>
                   <div className="relative w-full h-72 flex items-center justify-center">
                     <ResponsiveContainer>
                       <PieChart>
@@ -537,7 +537,7 @@ export default function AdminDashboard() {
 
                 {/* Age Group Distribution: Adjusted margin */}
                 <div className="bg-white rounded-2xl p-6 shadow-md hover:shadow-xl dark:bg-gray-800">
-                  <h3 className="text-lg font-semibold mb-4">
+                  <h3 className="font-semibold mb-6 text-gray-700 dark:text-gray-300">
                     🎂 Age Group Distribution
                   </h3>
                   <ResponsiveContainer width="100%" height={300}>
@@ -560,7 +560,7 @@ export default function AdminDashboard() {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6 ">
                 {/* Recruitment Funnel */}
                 <div className="bg-white p-4 rounded-lg shadow-md hover:shadow-xl flex flex-col h-full dark:bg-gray-800">
-                  <h2 className="text-xl font-semibold mb-4">
+                  <h2 className="font-semibold mb-6 text-gray-700 dark:text-gray-300">
                     🎯 Recruitment Funnel
                   </h2>
                   <ResponsiveContainer width="100%" height={350}>
@@ -590,7 +590,7 @@ export default function AdminDashboard() {
 
                 {/* Time to Hire by Department */}
                 <div className="bg-white p-4 rounded-lg shadow-md hover:shadow-xl flex flex-col h-full dark:bg-gray-800">
-                  <h2 className="text-xl font-semibold mb-4">
+                  <h2 className="font-semibold mb-6 text-gray-700 dark:text-gray-300">
                     ⏱ Time to Hire by Department (Days)
                   </h2>
                   <ResponsiveContainer width="100%" height={350}>
@@ -609,7 +609,7 @@ export default function AdminDashboard() {
 
                 {/* Reasons for Leaving: Adjusted grid span and margin */}
                 <div className="bg-white shadow-md hover:shadow-xl transition rounded-2xl p-6 flex flex-col h-full dark:bg-gray-800 md:col-span-2 lg:col-span-1">
-                  <h3 className="text-lg font-semibold mb-4">
+                  <h3 className="font-semibold mb-6 text-gray-700 dark:text-gray-300">
                     📊 Reasons for Leaving
                   </h3>
                   <ResponsiveContainer width="100%" height={350}>
@@ -636,7 +636,7 @@ export default function AdminDashboard() {
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
                 {/* Per-issue-type SLA (Radial cards) */}
                 <div className="bg-white shadow-md hover:shadow-xl transition rounded-2xl p-6 dark:bg-gray-800">
-                  <h3 className="text-lg font-semibold mb-4">
+                  <h3 className="font-semibold mb-6 text-gray-700 dark:text-gray-300">
                     🎯 Compliance by Issue Type
                   </h3>
                   {donutDataByType.length > 0 ? (
@@ -712,7 +712,7 @@ export default function AdminDashboard() {
 
                 {/* Payroll trend */}
                 <div className="bg-white shadow-md hover:shadow-xl transition rounded-2xl p-6 dark:bg-gray-800">
-                  <h3 className="text-lg font-semibold mb-4">
+                  <h3 className="font-semibold mb-6 text-gray-700 dark:text-gray-300">
                     📈 Payroll Trend
                   </h3>
                   {payrollTrend.length > 0 ? (
@@ -746,7 +746,7 @@ export default function AdminDashboard() {
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
                 {/* Bar Chart → Trainings by Department: Adjusted margin */}
                 <div className="bg-white shadow-md hover:shadow-xl transition rounded-2xl p-6 dark:bg-gray-800">
-                  <h3 className="text-lg font-semibold mb-4">
+                  <h3 className="font-semibold mb-6 text-gray-700 dark:text-gray-300">
                     📊 Trainings by Department
                   </h3>
                   {trainingSummary.byDepartment.length > 0 ? (
@@ -783,7 +783,7 @@ export default function AdminDashboard() {
 
                 {/* Donut Chart → Training Type Distribution */}
                 <div className="bg-white shadow-md hover:shadow-xl transition rounded-2xl p-6 dark:bg-gray-800">
-                  <h3 className="text-lg font-semibold mb-4">
+                  <h3 className="font-semibold mb-6 text-gray-700 dark:text-gray-300">
                     🍩 Training Type Distribution
                   </h3>
                   {trainingSummary.byType.length > 0 ? (
@@ -827,7 +827,7 @@ export default function AdminDashboard() {
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                 >
-                  <h2 className="text-lg font-semibold mb-4">
+                  <h2 className="font-semibold mb-6 text-gray-700 dark:text-gray-300">
                     📉 Absenteeism % Trend
                   </h2>
                   <ResponsiveContainer width="100%" height={300}>
@@ -858,7 +858,7 @@ export default function AdminDashboard() {
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                 >
-                  <h2 className="text-lg font-semibold mb-4">
+                  <h2 className="font-semibold mb-6 text-gray-700 dark:text-gray-300">
                     🔥 Performance Ratings Heatmap
                   </h2>
                   <ResponsiveContainer width="100%" height={300}>

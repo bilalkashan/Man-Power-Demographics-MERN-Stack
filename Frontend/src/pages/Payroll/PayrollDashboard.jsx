@@ -518,7 +518,7 @@ export default function PayrollDashboard({ userRole }) {
                   )}
                 </motion.div>
 
-                {/* NEW CHART 3: Headcount Trend (Column 3) */}
+                {/* Headcount Trend */}
                 <motion.div
                   className="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-md hover:shadow-xl transition"
                   initial={{ opacity: 0, x: 40 }}

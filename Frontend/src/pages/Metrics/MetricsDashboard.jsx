@@ -271,10 +271,10 @@ export default function MetricsDashboard({ userRole }) {
               ].map((k, i) => (
                 <motion.div
                   key={i}
-                  className={`bg-gradient-to-r ${k.color} text-white p-6 rounded-2xl shadow-lg hover:scale-105 transition transform`}
+                  className={`bg-gradient-to-r ${k.color} text-white p-4 rounded-2xl shadow-lg hover:scale-105 transition transform`}
                 >
-                  <h3 className="text-lg mb-2 opacity-90">{k.title}</h3>
-                  <p className="text-3xl font-bold tracking-wide">
+                  <h3 className="text-sm font-medium mb-1 truncate">{k.title}</h3>
+                  <p className="text-xl font-bold">
                     {k.value}
                   </p>
                 </motion.div>

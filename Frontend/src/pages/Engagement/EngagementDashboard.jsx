@@ -173,18 +173,12 @@ export default function EngagementDashboard({ userRole }) {
           setSidebarOpen={setSidebarOpen}
           darkMode={darkMode}
         />
-        {/* --- ALIGNMENT FIX ---
-          - Removed fixed hamburger button
-          - Removed `md:ml-1` from <main>
-          - Added responsive padding
-        */}
+
         <main className="flex-1 p-4 sm:p-6 overflow-auto text-gray-800 dark:text-gray-200">
           {/* Title */}
           <div className="flex justify-between items-center mb-6 sm:mb-8">
             <div className="flex items-center">
-              {/* --- HAMBURGER FIX ---
-                - Moved hamburger button here
-              */}
+
               <button
                 className="p-2 rounded-md text-gray-800 dark:text-gray-200 mr-3 md:hidden"
                 onClick={() => setSidebarOpen(true)}
@@ -299,14 +293,14 @@ export default function EngagementDashboard({ userRole }) {
               },
             ].map((kpi, idx) => (
               <motion.div
-                key={idx}
-                className={`bg-gradient-to-r ${kpi.color} text-white p-6 rounded-2xl shadow-lg hover:scale-105 transition-transform`}
-              >
-                <h3 className="text-lg font-medium mb-2 truncate">
-                  {kpi.title}
-                </h3>
-                <p className="text-xl font-bold truncate">{kpi.value}</p>
-              </motion.div>
+                  key={idx}
+                  className={`bg-gradient-to-r ${kpi.color} text-white p-4 rounded-2xl shadow-lg hover:scale-105 transition transform`}
+                >
+                  <h3 className="text-sm font-medium mb-1 truncate">{kpi.title}</h3>
+                  <p className="text-xl font-bold">
+                    {kpi.value}
+                  </p>
+                </motion.div>
             ))}
           </div>
 

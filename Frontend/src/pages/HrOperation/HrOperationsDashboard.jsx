@@ -198,17 +198,9 @@ export default function HrOperationsDashboard({ userRole }) {
           setSidebarOpen={setSidebarOpen}
           darkMode={darkMode}
         />
-        {/* --- ALIGNMENT FIX ---
-          - Removed the fixed hamburger button
-          - Removed `md:ml-1` from the <main> tag
-          - Added responsive padding `p-4 sm:p-6`
-        */}
         <main className="flex-1 p-4 sm:p-6 overflow-auto text-gray-800 dark:text-gray-200">
           <div className="flex justify-between items-center mb-6 sm:mb-8">
             <div className="flex items-center">
-              {/* --- HAMBURGER FIX ---
-                - Added hamburger button here, inside the header
-              */}
               <button
                 className="p-2 rounded-md text-gray-800 dark:text-gray-200 mr-3 md:hidden"
                 onClick={() => setSidebarOpen(true)}
@@ -243,9 +235,6 @@ export default function HrOperationsDashboard({ userRole }) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
           >
-            {/* --- RESPONSIVENESS FIX ---
-              - Added flex-wrap and width classes to stack filters on mobile
-            */}
             {userRole === "user" && (
               <div className="flex flex-wrap sm:flex-nowrap items-center gap-3 w-full lg:w-auto">
                 <input
@@ -327,9 +316,6 @@ export default function HrOperationsDashboard({ userRole }) {
             </div>
           </motion.div>
 
-          {/* --- RESPONSIVENESS FIX ---
-            - Added `sm:grid-cols-2` for tablets
-          */}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mb-8">
             {[
               {
@@ -354,12 +340,14 @@ export default function HrOperationsDashboard({ userRole }) {
               },
             ].map((kpi, idx) => (
               <motion.div
-                key={idx}
-                className={`bg-gradient-to-r ${kpi.color} text-white p-6 rounded-2xl shadow-lg hover:scale-105 transition-transform`}
-              >
-                <h3 className="text-lg sm:text-xl font-medium mb-2">{kpi.title}</h3>
-                <p className="text-lg font-bold">{kpi.value}</p>
-              </motion.div>
+                  key={idx}
+                  className={`bg-gradient-to-r ${kpi.color} text-white p-4 rounded-2xl shadow-lg hover:scale-105 transition transform`}
+                >
+                  <h3 className="text-sm font-medium mb-1 truncate">{kpi.title}</h3>
+                  <p className="text-xl font-bold">
+                    {kpi.value}
+                  </p>
+                </motion.div>
             ))}
           </div>
 

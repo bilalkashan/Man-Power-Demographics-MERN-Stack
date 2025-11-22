@@ -189,11 +189,6 @@ export default function DemographicsDashboard({ userRole }) {
             setSidebarOpen={setSidebarOpen}
             darkMode={darkMode}
           />
-          
-          {/* --- ALIGNMENT FIX ---
-            - I removed the `md:ml-64` class from this <main> element.
-            - The parent `flex` container is sufficient to position it next to the sidebar.
-          */}
           <main className="flex-1 p-4 sm:p-6 overflow-auto text-gray-800 dark:text-gray-200">
             <div className="flex justify-between items-center mb-6 sm:mb-8">
               <div className="flex items-center">
@@ -354,10 +349,12 @@ export default function DemographicsDashboard({ userRole }) {
               ].map((k, i) => (
                 <motion.div
                   key={i}
-                  className={`bg-gradient-to-r ${k.color} text-white p-6 rounded-2xl shadow-lg hover:scale-105 transition-transform`}
+                  className={`bg-gradient-to-r ${k.color} text-white p-4 rounded-2xl shadow-lg hover:scale-105 transition transform`}
                 >
-                  <h3 className="text-lg font-medium mb-2">{k.title}</h3>
-                  <p className="text-xl font-bold">{k.value}</p>
+                  <h3 className="text-sm font-medium mb-1 truncate">{k.title}</h3>
+                  <p className="text-xl font-bold">
+                    {k.value}
+                  </p>
                 </motion.div>
               ))}
             </div>

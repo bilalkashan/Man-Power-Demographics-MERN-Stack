@@ -285,19 +285,21 @@ export default function TrainingDevelopmentDashboard({ userRole }) {
               },
             ].map((k, idx) => (
               <motion.div
-                key={idx}
-                className={`bg-gradient-to-r ${k.color} text-white p-6 rounded-2xl shadow-lg hover:scale-105 transition-transform`}
-              >
-                <div className="flex items-baseline justify-between">
-                  <h3 className="text-lg font-medium">{k.title}</h3>
-                  {k.badge && (
-                    <span className="text-xs bg-white/20 px-2 py-0.5 rounded-full">
-                      {k.badge}
-                    </span>
-                  )}
-                </div>
-                <p className="text-2xl font-bold mt-2 truncate">{k.value}</p>
-              </motion.div>
+                  key={idx}
+                  className={`bg-gradient-to-r ${k.color} text-white p-4 rounded-2xl shadow-lg hover:scale-105 transition transform`}
+                >
+                  <div className="flex items-baseline justify-between">
+                    <h3 className="text-sm font-medium mb-1 truncate">{k.title}</h3>
+                    {k.badge && (
+                      <span className="text-xs bg-white/20 px-2 py-0.5 rounded-full">
+                        {k.badge}
+                      </span>
+                    )}
+                  </div>
+                  <p className="text-xl font-bold">
+                    {k.value}
+                  </p>
+                </motion.div>
             ))}
           </div>
 
