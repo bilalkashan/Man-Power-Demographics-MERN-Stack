@@ -77,7 +77,7 @@ export default function AdminDashboard() {
   // Dark mode
   const { darkMode, toggleDarkMode } = useTheme();
 
-  // ✅ New KPI state
+  // New KPI state
   const [kpis, setKpis] = useState({
     headcount: 0,
     hires: 0,
@@ -183,7 +183,7 @@ export default function AdminDashboard() {
     fetchRecruitmentData();
   }, []);
 
-  // ✅ Other states
+  // Other states
   const [absenteeism, setAbsenteeism] = useState([]);
   const [performance, setPerformance] = useState([]);
   const [year, setYear] = useState(new Date().getFullYear());
@@ -193,14 +193,14 @@ export default function AdminDashboard() {
   const headcount = latestPayroll.headcount || 0;
   const payroll = latestPayroll.totalPayroll || 0;
 
-  // ✅ Compute Headcount from demographics
+  // Compute Headcount from demographics
   const totalEmployees = demographics.length;
   const maleCount = demographics.filter((d) => d.Gender === "Male").length;
   const femaleCount = demographics.filter((d) => d.Gender === "Female").length;
 
   const ageGroups = ["<25", "25-34", "35-44", "45-54", "55+"];
 
-  // 📉 Fetch absenteeism & performance
+  //  Fetch absenteeism & performance
   useEffect(() => {
     const fetchMetrics = async () => {
       try {
@@ -383,21 +383,16 @@ export default function AdminDashboard() {
             setSidebarOpen={setSidebarOpen}
             darkMode={darkMode}
           />
-          {/* Main content area: Added md:ml-64 for desktop sidebar offset, adjusted padding */}
           <main className="flex-1 p-4 sm:p-6 overflow-auto text-gray-800 dark:text-gray-200">
 
-            {/* Header: Wrapped left items, added hamburger button */}
             <div className="flex justify-between mb-7 p-4 items-center backdrop-blur bg-white/80 rounded-xl shadow-md dark:bg-gray-800">
-              {/* Left side of header */}
               <div className="flex items-center">
-                {/* Hamburger Menu Button (Mobile Only) */}
                 <button
                   onClick={() => setSidebarOpen(true)}
                   className="p-2 rounded-md text-gray-800 dark:text-gray-200 mr-3 md:hidden"
                 >
                   <FaBars className="text-xl" />
                 </button>
-                {/* Page Title */}
                 <motion.h1
                   className="text-2xl sm:text-3xl font-extrabold text-gray-800 tracking-tight dark:text-gray-300"
                   initial={{ opacity: 0, y: -20 }}
@@ -480,7 +475,6 @@ export default function AdminDashboard() {
             </div>
 
             <ErrorBoundary>
-              {/* 📊 Demographics Section */}
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {/* Gender Ratio: Made icons/text responsive */}
                 <motion.div
@@ -518,7 +512,6 @@ export default function AdminDashboard() {
                     {/* Centered Male/Female Counts */}
                     <div className="absolute inset-0 flex items-center justify-center">
                       <div className="flex">
-                        {/* Male */}
                         <div className="flex flex-col items-center px-2">
                           <FaMale className="text-blue-800 text-5xl sm:text-6xl" />
                           <span className="text-md sm:text-lg font-bold text-gray-800 dark:text-gray-300">
@@ -859,7 +852,7 @@ export default function AdminDashboard() {
                   </ResponsiveContainer>
                 </motion.div>
 
-                {/* 🔥 Performance Ratings Heatmap: Adjusted YAxis width */}
+                {/* Performance Ratings Heatmap: Adjusted YAxis width */}
                 <motion.div
                   className="bg-white p-6 rounded-2xl shadow-md hover:shadow-xl transition dark:bg-gray-800"
                   initial={{ opacity: 0, y: 30 }}

@@ -161,15 +161,9 @@ export default function MetricsDashboard({ userRole }) {
             darkMode={darkMode}
           />
 
-          {/* --- ALIGNMENT FIX ---
-            - Removed `md:ml-1` and adjusted padding
-          */}
           <main className="flex-1 p-4 sm:p-6 overflow-auto text-gray-800 dark:text-gray-200">
             <div className="flex justify-between items-center mb-6 sm:mb-8">
               <div className="flex items-center">
-                {/* --- HAMBURGER FIX ---
-                  - Added hamburger button here
-                */}
                 <button
                   className="p-2 rounded-md text-gray-800 dark:text-gray-200 mr-3 md:hidden"
                   onClick={() => setSidebarOpen(true)}
@@ -204,9 +198,6 @@ export default function MetricsDashboard({ userRole }) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
             >
-              {/* --- RESPONSIVENESS FIX ---
-                - Added flex-wrap and width classes
-              */}
               {userRole === "user" && (
                 <div className="flex flex-wrap sm:flex-nowrap items-center gap-3 w-full lg:w-auto">
                   <input

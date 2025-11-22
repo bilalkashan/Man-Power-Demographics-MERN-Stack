@@ -364,10 +364,7 @@ export default function PayrollDashboard({ userRole }) {
               ].map((kpi, idx) => (
                 <motion.div
                   key={idx}
-                  className={`bg-gradient-to-r ${kpi.color} text-white p-4 rounded-xl shadow-lg hover:scale-[1.02] transition-transform`}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: idx * 0.1 }}
+                  className={`bg-gradient-to-r ${kpi.color} text-white p-4 rounded-2xl shadow-lg hover:scale-105 transition transform`}
                 >
                   <h3 className="text-sm font-medium mb-1 truncate">{kpi.title}</h3>
                   <p className="text-xl font-bold">
