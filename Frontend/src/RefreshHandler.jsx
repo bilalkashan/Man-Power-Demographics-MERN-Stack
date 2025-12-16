@@ -13,9 +13,8 @@ function RefreshHandler() {
     try {
       user = JSON.parse(localStorage.getItem("loggedInUser"));
     } catch {
-  
       localStorage.clear();
-      navigate("/login", { replace: true });
+      navigate("/my-hr-admin-login", { replace: true });
       return;
     }
 
@@ -26,21 +25,21 @@ function RefreshHandler() {
 
         if (decoded.exp < currentTime) {
           localStorage.clear();
-          navigate("/login", { replace: true });
+          navigate("/my-hr-admin-login", { replace: true });
           return;
         }
 
         const role = user.role;
-        const isOnPublicRoute = ["/", "/login", "/signup"].includes(location.pathname);
+        const isOnPublicRoute = ["/", "/my-hr-admin-login", "/signup"].includes(
+          location.pathname
+        );
 
         if (isOnPublicRoute) {
-          if (role === "user") navigate("/userdashboard", { replace: true });
-          else if (role === "admin") navigate("/adminDashboard", { replace: true });
-          else if (role === "superAdmin") navigate("/superAdminDashboard", { replace: true });
+          if (role === "admin") navigate("/adminDashboard", { replace: true });
         }
       } catch (err) {
         localStorage.clear();
-        navigate("/login", { replace: true });
+        navigate("/my-hr-admin-login", { replace: true });
       }
     }
   }, [location, navigate]);

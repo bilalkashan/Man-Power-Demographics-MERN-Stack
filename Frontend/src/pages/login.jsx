@@ -1,66 +1,57 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
-import { handleSuccess, handleError } from "../toast";
 import api from "../api";
 import { FaEnvelope, FaLock } from "react-icons/fa";
 import { motion } from "framer-motion";
 import logo from "../assets/MMC-Logo.png"; // <-- Your logo path
+import { toast } from "react-toastify";
 
 function Login() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+  const handleChange = (e) =>
+    setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
       const res = await api.post("/auth/login", formData);
+      toast.success("Login successful!");
+
       const result = res.data;
 
       if (result.success) {
-        handleSuccess(result.message);
         const { user } = result;
-        
         // Save data to local storage
         localStorage.setItem("token", result.token);
         localStorage.setItem("role", user.role);
         localStorage.setItem(
           "loggedInUser",
-          JSON.stringify({ 
-            _id: user.id, 
-            name: user.name, 
-            email: user.email, 
-            role: user.role, 
-            success: result.success 
+          JSON.stringify({
+            _id: user.id,
+            name: user.name,
+            email: user.email,
+            role: user.role,
+            success: result.success,
           })
         );
 
         setTimeout(() => {
           // Normalize role to lowercase for comparison
           const role = user.role?.toLowerCase().trim();
-          
+
           // --- Updated Logic Below ---
-          if (role === "superadmin") {
-            navigate("/superAdminDashboard");
-          } else if (role === "admin") {
+          if (role === "admin") {
             navigate("/adminDashboard");
-          } else if (role === "user") { 
-            navigate("/userdashboard");
-          } else {
-            // Optional: Handle unknown roles
-            navigate("/"); 
           }
-          // ---------------------------
-          
         }, 1000);
       } else {
-        handleError(result.message || "Login failed");
+        toast.error(result.message || "Login failed");
       }
     } catch (err) {
-      handleError(err.response?.data?.message || "Login failed");
+      toast.error(err.response?.data?.message || "Login failed");
     }
   };
 
@@ -73,9 +64,6 @@ function Login() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, type: "spring", stiffness: 80 }}
         >
-          <div className="flex justify-center mb-6">
-            <img src={logo} alt="Logo" className="h-13" />
-          </div>
 
           <h2 className="text-center text-lg font-semibold text-gray-700 mb-6">
             Please sign in to your account
@@ -109,7 +97,6 @@ function Login() {
             </div>
 
             <div className="flex justify-between items-center text-sm text-gray-600">
-
               <div className="flex items-center gap-2">
                 <input
                   type="checkbox"
@@ -118,18 +105,20 @@ function Login() {
                   onChange={() => setShowPassword(!showPassword)}
                   className="cursor-pointer"
                 />
-                <label htmlFor="showPassword" className="text-sm text-gray-600 cursor-pointer">
+                <label
+                  htmlFor="showPassword"
+                  className="text-sm text-gray-600 cursor-pointer"
+                >
                   Show Password
                 </label>
               </div>
-              
+
               <Link
                 to="/forgot-password"
                 className="block text-xs text-blue-500 hover:underline mt-2 text-right"
               >
                 Forgot Password?
               </Link>
-         
             </div>
 
             <button
@@ -140,12 +129,13 @@ function Login() {
             </button>
 
             <div className="text-center">
-              <span className="mt-6 text-center text-gray-500 text-sm font-semibold">Developed by: Human Resource Department</span>
+              <span className="mt-6 text-center text-gray-500 text-sm font-semibold">
+                <p>&copy; {new Date().getFullYear()} MY HR | All rights reserved.</p>
+              </span>
             </div>
           </form>
         </motion.div>
       </div>
-      <ToastContainer />
     </>
   );
 }

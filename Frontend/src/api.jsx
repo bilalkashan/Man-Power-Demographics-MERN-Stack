@@ -5,7 +5,7 @@ const LOCAL_API_URL = "http://localhost:8080";
 export const fileUrl = (relative) => {
   if (!relative) return "";
   if (relative.startsWith("http")) return relative;
-  
+
   // Use the updated fallback URL
   const base = import.meta.env.VITE_API_URL || LOCAL_API_URL;
   const clean = relative.replace(/^\/+/, "");

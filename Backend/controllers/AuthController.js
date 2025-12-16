@@ -8,20 +8,28 @@ export const login = async (req, res) => {
     const { email, password } = req.body;
 
     if (!email || !password) {
-      return res.status(400).json({ success: false, message: "All fields required" });
+      return res
+        .status(400)
+        .json({ success: false, message: "All fields required" });
     }
 
     const user = await UserModel.findOne({ email });
     if (!user) {
-      return res.status(401).json({ success: false, message: "Invalid email or password" });
+      return res
+        .status(401)
+        .json({ success: false, message: "Invalid email or password" });
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.status(401).json({ success: false, message: "Invalid email or password" });
+      return res
+        .status(401)
+        .json({ success: false, message: "Invalid email or password" });
     }
 
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "1d" });
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+      expiresIn: "1d",
+    });
 
     return res.status(200).json({
       success: true,
@@ -31,8 +39,8 @@ export const login = async (req, res) => {
         id: user._id,
         name: user.name,
         email: user.email,
-        role: user.role
-      }
+        role: user.role,
+      },
     });
   } catch (error) {
     console.error(error);
@@ -41,28 +49,44 @@ export const login = async (req, res) => {
 };
 
 export const signup = async (req, res) => {
-    console.log("Signup Payload:", req.body);
+  console.log("Signup Payload:", req.body);
 
   try {
     const { name, email, password, role } = req.body;
-     console.log({ name, email, password, role }); 
+    console.log({ name, email, password, role });
 
     if (!name || !email || !password || !role) {
-      return res.status(400).json({ message: "All fields are required", success: false });
+      return res
+        .status(400)
+        .json({ message: "All fields are required", success: false });
     }
 
     if (!/^[A-Za-z ]{3,}$/.test(name)) {
-      return res.status(400).json({ message: "Name must be at least 3 letters and only alphabets allowed", success: false });
+      return res
+        .status(400)
+        .json({
+          message: "Name must be at least 3 letters and only alphabets allowed",
+          success: false,
+        });
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-      return res.status(400).json({ message: "Invalid email format", success: false });
+      return res
+        .status(400)
+        .json({ message: "Invalid email format", success: false });
     }
 
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/;
+    const passwordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/;
     if (!passwordRegex.test(password)) {
-      return res.status(400).json({ message: "Password must be 8+ chars with upper, lower, number & special char", success: false });
+      return res
+        .status(400)
+        .json({
+          message:
+            "Password must be 8+ chars with upper, lower, number & special char",
+          success: false,
+        });
     }
 
     const existingUser = await UserModel.findOne({ email });
@@ -71,7 +95,9 @@ export const signup = async (req, res) => {
       if (!existingUser.is_verified) {
         await UserModel.deleteOne({ _id: existingUser._id });
       } else {
-        return res.status(409).json({ message: "User already exists", success: false });
+        return res
+          .status(409)
+          .json({ message: "User already exists", success: false });
       }
     }
 
@@ -92,11 +118,16 @@ export const signup = async (req, res) => {
 
     await sendEmail(
       email,
-      "Man Power Demographics - Email Verification OTP",
+      "My HR - Email Verification OTP",
       `Hello ${name},\n\nYour OTP is: ${otp}\n\nPlease enter this to verify your account.`
     );
 
-    return res.status(201).json({ message: "Signup successful. OTP sent to email.", success: true });
+    return res
+      .status(201)
+      .json({
+        message: "Signup successful. OTP sent to email.",
+        success: true,
+      });
   } catch (error) {
     console.error("Signup Error:", error);
     return res.status(500).json({ message: "Server error", success: false });
@@ -109,7 +140,12 @@ export const verify = async (req, res) => {
 
     const user = await UserModel.findOne({ email });
     if (!user) {
-      return res.status(409).json({ message: "Auth failed: email or password wrong", success: false });
+      return res
+        .status(409)
+        .json({
+          message: "Auth failed: email or password wrong",
+          success: false,
+        });
     }
 
     if (user.otp != otp) {
@@ -169,12 +205,11 @@ export const forgetPassword = async (req, res) => {
         Regards,  
         Master Motor Support Team`
     );
-    
+
     return res.status(200).json({
       message: "If a matching account was found, an OTP has been sent.",
       success: true,
     });
-
   } catch (error) {
     console.error("Forget Password Error:", error);
     res.status(500).json({ message: "Server error", success: false });
@@ -185,15 +220,24 @@ export const resetPassword = async (req, res) => {
   try {
     const { email, otp, password } = req.body;
 
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/;
+    const passwordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/;
     if (!passwordRegex.test(password)) {
-      return res.status(400).json({ message: "Password must be 8+ chars with upper, lower, number & special char", success: false });
+      return res
+        .status(400)
+        .json({
+          message:
+            "Password must be 8+ chars with upper, lower, number & special char",
+          success: false,
+        });
     }
 
     const user = await UserModel.findOne({ email });
 
     if (!user) {
-      return res.status(404).json({ message: "User not found", success: false });
+      return res
+        .status(404)
+        .json({ message: "User not found", success: false });
     }
 
     if (user.otp != otp) {
@@ -202,14 +246,13 @@ export const resetPassword = async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
     user.password = hashedPassword;
-    user.otp = undefined; 
+    user.otp = undefined;
     await user.save();
 
     res.status(200).json({
       message: "Password reset successfully. Please log in.",
       success: true,
     });
-
   } catch (error) {
     console.error("Error occurred:", error);
     res.status(500).json({ message: "Server error", success: false });
@@ -221,21 +264,26 @@ export const verifyResetOtp = async (req, res) => {
     const { email, otp } = req.body;
 
     if (!email || !otp) {
-      return res.status(400).json({ message: "Email and OTP are required", success: false });
+      return res
+        .status(400)
+        .json({ message: "Email and OTP are required", success: false });
     }
 
     const user = await UserModel.findOne({ email });
 
     if (!user) {
-      return res.status(400).json({ message: "Invalid OTP or email", success: false });
+      return res
+        .status(400)
+        .json({ message: "Invalid OTP or email", success: false });
     }
 
     if (user.otp != otp) {
       return res.status(400).json({ message: "Invalid OTP", success: false });
     }
 
-    res.status(200).json({ message: "OTP verified successfully", success: true });
-
+    res
+      .status(200)
+      .json({ message: "OTP verified successfully", success: true });
   } catch (error) {
     console.error("Verify OTP Error:", error);
     res.status(500).json({ message: "Server error", success: false });

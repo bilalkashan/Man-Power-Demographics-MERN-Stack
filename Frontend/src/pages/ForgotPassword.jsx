@@ -27,7 +27,6 @@ function ForgotPassword() {
         setTimeout(() => {
           navigate("/reset-password", { state: { email } });
         }, 2000); // 2-second delay
-
       } else {
         handleError(response.data.message || "Failed to send OTP.");
         setIsLoading(false); // Re-enable button on failure
@@ -50,7 +49,9 @@ function ForgotPassword() {
           <div className="flex justify-center mb-6">
             <img src={logo} alt="Logo" className="h-13" />
           </div>
-          <h2 className="text-center text-xl font-semibold text-gray-700 mb-2">Forgot Your Password?</h2>
+          <h2 className="text-center text-xl font-semibold text-gray-700 mb-2">
+            Forgot Your Password?
+          </h2>
           <p className="text-center text-sm text-gray-500 mb-6">
             Enter your email and we'll send you an OTP to reset it.
           </p>
@@ -77,7 +78,9 @@ function ForgotPassword() {
               {isLoading ? "Sending..." : "Send OTP"}
             </button>
             <div className="text-center">
-              <span className="mt-6 text-center text-gray-500 text-sm font-semibold">Developed by: Human Resource Department</span>
+              <span className="mt-6 text-center text-gray-500 text-sm font-semibold">
+                Developed by: Human Resource Department
+              </span>
             </div>
           </form>
         </motion.div>

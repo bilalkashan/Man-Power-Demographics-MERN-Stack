@@ -85,12 +85,20 @@ function ResetPassword() {
     if (password !== confirmPassword) {
       return handleError("Passwords do not match.");
     }
-    if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/.test(password)) {
-      return handleError("Password must be 8+ chars with upper, lower, number & special char");
+    if (
+      !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/.test(password)
+    ) {
+      return handleError(
+        "Password must be 8+ chars with upper, lower, number & special char"
+      );
     }
 
     try {
-      const response = await api.post("/auth/resetPassword", { email, otp, password });
+      const response = await api.post("/auth/resetPassword", {
+        email,
+        otp,
+        password,
+      });
       if (response.data.success) {
         handleSuccess("Password has been reset successfully!");
         setTimeout(() => navigate("/login"), 1500);
@@ -113,7 +121,9 @@ function ResetPassword() {
         >
           {!isOtpVerified ? (
             <>
-              <h2 className="text-center text-xl font-semibold text-gray-700 mb-2">Verify Your Identity</h2>
+              <h2 className="text-center text-xl font-semibold text-gray-700 mb-2">
+                Verify Your Identity
+              </h2>
               <p className="text-center text-sm text-gray-500 mb-6">
                 An OTP was sent to <strong>{email}</strong>.
               </p>
@@ -139,7 +149,9 @@ function ResetPassword() {
                     disabled={isResendDisabled}
                     className="text-blue-600 hover:underline disabled:text-gray-400 disabled:cursor-not-allowed"
                   >
-                    {isResendDisabled ? `Resend OTP in ${timer}s` : "Resend OTP"}
+                    {isResendDisabled
+                      ? `Resend OTP in ${timer}s`
+                      : "Resend OTP"}
                   </button>
                   <Link to="/login" className="text-blue-600 hover:underline">
                     Back to Login &rarr;
@@ -156,7 +168,9 @@ function ResetPassword() {
             </>
           ) : (
             <>
-              <h2 className="text-center text-xl font-semibold text-gray-700 mb-2">Set New Password</h2>
+              <h2 className="text-center text-xl font-semibold text-gray-700 mb-2">
+                Set New Password
+              </h2>
               <p className="text-center text-sm text-gray-500 mb-6">
                 Create a new, strong password for your account.
               </p>
@@ -193,7 +207,12 @@ function ResetPassword() {
                     onChange={() => setShowPassword(!showPassword)}
                     className="cursor-pointer"
                   />
-                  <label htmlFor="showPassword" className="text-sm text-gray-600 cursor-pointer">Show Passwords</label>
+                  <label
+                    htmlFor="showPassword"
+                    className="text-sm text-gray-600 cursor-pointer"
+                  >
+                    Show Passwords
+                  </label>
                 </div>
                 <button
                   type="submit"
@@ -206,7 +225,9 @@ function ResetPassword() {
           )}
 
           <div className="text-center mt-6">
-            <span className="text-gray-500 text-sm font-semibold">Developed by: Human Resource Department</span>
+            <span className="text-gray-500 text-sm font-semibold">
+              Developed by: Human Resource Department
+            </span>
           </div>
         </motion.div>
       </div>

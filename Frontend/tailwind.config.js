@@ -1,11 +1,15 @@
-/** @type {import('tailwindcss').Config} */
 export default {
-  darkMode: "class",
   content: [
-    "./src/**/*.{js,jsx,ts,tsx,html}",
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        primary: '#0f172a', // Professional Dark Blue
+        accent: '#3b82f6',  // Trustworthy Blue
+      }
+    },
   },
   plugins: [],
-};
+}
